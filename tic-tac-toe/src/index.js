@@ -29,23 +29,16 @@ class Board extends React.Component {
   }
 
   render() {
+    const array = Array(3).fill(0);
     return (
       <div>
+        {array.map((_, x) =>
         <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
+          {array.map((_, y) =>
+          this.renderSquare(3 * x + y)
+          )}
         </div>
-        <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
+        )}
       </div>
     );
   }
