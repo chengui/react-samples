@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 
+const NNN = 3;
+
 class Square extends React.Component {
   render() {
     return (
@@ -29,13 +31,13 @@ class Board extends React.Component {
   }
 
   render() {
-    const array = Array(3).fill(0);
+    const array = Array(NNN).fill(0);
     return (
       <div>
         {array.map((_, x) =>
         <div className="board-row">
           {array.map((_, y) =>
-          this.renderSquare(3 * x + y)
+          this.renderSquare(NNN * x + y)
           )}
         </div>
         )}
@@ -49,7 +51,7 @@ class Game extends React.Component {
     super(props);
     this.state = {
       history: [{
-        squares: Array(9).fill(null)
+        squares: Array(NNN * NNN).fill(null)
       }],
       coordindate: [
         -1,
@@ -60,21 +62,74 @@ class Game extends React.Component {
   }
 
   calcWinner(squares) {
-    const lines = [
-      [0, 1, 2],
-      [3, 4, 5],
-      [6, 7, 8],
-      [0, 3, 6],
-      [1, 4, 7],
-      [2, 5, 8],
-      [0, 4, 8],
-      [2, 4, 6],
-    ];
-    for (let i = 0; i < lines.length; i++) {
-      const [a, b, c] = lines[i];
-      if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-        return squares[a];
+    let flag;
+    for (let i = 0; i < NNN; i++) {
+      flag = true;
+      let first_col = squares[i * NNN];
+      if (first_col) {
+        for (let j = 1; j < NNN; j++) {
+          let cur_col = squares[i * NNN + j];
+          if (first_col !== cur_col) {
+            flag = false;
+            break;
+          }
+        }
+        if (flag) {
+          return first_col;
+        }
       }
+      flag = false;
+    }
+    for (let i = 0; i < NNN; i++) {
+      flag = true;
+      let first_row = squares[i];
+      if (first_row) {
+        for (let j = 1; j < NNN; j++) {
+          let cur_row = squares[j * NNN + i];
+          if (first_row !== cur_row) {
+            flag = false;
+            break;
+          }
+        }
+        if (flag) {
+          return first_row;
+        }
+      }
+      flag = false;
+    }
+    {
+      flag = true;
+      let left_corner = squares[0 * NNN + 0];
+      if (left_corner) {
+        for (let i = 1; i < NNN; i++) {
+          let cur_corner = squares[i * NNN + i];
+          if (left_corner !== cur_corner) {
+            flag = false;
+            break;
+          }
+        }
+        if (flag) {
+          return left_corner;
+        }
+      }
+      flag = false;
+    }
+    {
+      flag = true;
+      let right_corner = squares[0 * NNN + NNN-1];
+      if (right_corner) {
+        for (let i = 1; i < NNN; i++) {
+          let cur_corner = squares[i * NNN + NNN-1-i];
+          if (right_corner !== cur_corner) {
+            flag = false;
+            break;
+          }
+        }
+        if (flag) {
+          return right_corner;
+        }
+      }
+      flag = false;
     }
     return null;
   }
@@ -112,8 +167,8 @@ class Game extends React.Component {
     const winner = this.calcWinner(current.squares);
 
     const moves = history.map((step, move) => {
-      const row = coordindate[move] / 3 | 0;
-      const col = coordindate[move] % 3;
+      const row = coordindate[move] / NNN | 0;
+      const col = coordindate[move] % NNN;
       let desc = move ?
         'Go to move #' + move + ': (' + row + ',' + col + ')':
         'Go to game start';
