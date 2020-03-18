@@ -28,6 +28,7 @@ class Board extends React.Component {
   renderSquare(i) {
     return (
       <Square
+        key={i}
         highlight={this.props.linked.includes(i)}
         value={this.props.squares[i]}
         onClick={() => this.props.onClick(i) }
@@ -40,7 +41,7 @@ class Board extends React.Component {
     return (
       <div>
         {array.map((_, x) =>
-        <div className="board-row">
+        <div className="board-row" key={x}>
           {array.map((_, y) =>
           this.renderSquare(NNN * x + y)
           )}
@@ -156,6 +157,12 @@ class Game extends React.Component {
       }
       flag = false;
     }
+    if (squares.filter(v => v === null).length === 0) {
+      return {
+        'draw': true,
+        'linked': [],
+      }
+    }
     return null;
   }
 
@@ -212,7 +219,11 @@ class Game extends React.Component {
     let status;
     let linked;
     if (winner) {
-      status = 'Winner: ' + winner.player;
+      if (winner.draw) {
+        status = 'Winner: Draw';
+      } else {
+        status = 'Winner: ' + winner.player;
+      }
       linked = winner.linked;
     } else {
       status = 'Next Player: ' + (this.state.xIsNext ? 'X' : 'O');
