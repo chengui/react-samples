@@ -121,9 +121,12 @@ class Game extends React.Component {
     const moves = history.map((step, move) => {
       const row = coordindate[move] / 3 | 0;
       const col = coordindate[move] % 3;
-      const desc = move ?
+      let desc = move ?
         'Go to move #' + move + ': (' + row + ',' + col + ')':
         'Go to game start';
+      if (this.state.stepNumber === move) {
+        desc = <b>{desc}</b>;
+      }
       return (
         <li key={move}>
           <button onClick={() => this.jumpTo(move)}>
