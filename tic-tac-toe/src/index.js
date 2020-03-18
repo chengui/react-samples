@@ -9,7 +9,11 @@ class Square extends React.Component {
   render() {
     return (
       <button
-        className="square"
+        className={
+          this.props.highlight
+          ? "square-highlight"
+          : "square"
+        }
         onClick={() => {
           this.props.onClick();
         }}
@@ -24,6 +28,7 @@ class Board extends React.Component {
   renderSquare(i) {
     return (
       <Square
+        highlight={this.props.linked.includes(i)}
         value={this.props.squares[i]}
         onClick={() => this.props.onClick(i) }
       />
@@ -67,7 +72,9 @@ class Game extends React.Component {
       flag = true;
       let first_col = squares[i * NNN];
       if (first_col) {
+        let linked = [i * NNN];
         for (let j = 1; j < NNN; j++) {
+          linked.push(i * NNN + j);
           let cur_col = squares[i * NNN + j];
           if (first_col !== cur_col) {
             flag = false;
@@ -75,7 +82,10 @@ class Game extends React.Component {
           }
         }
         if (flag) {
-          return first_col;
+          return {
+            'player': first_col,
+            'linked': linked,
+          };
         }
       }
       flag = false;
@@ -84,7 +94,9 @@ class Game extends React.Component {
       flag = true;
       let first_row = squares[i];
       if (first_row) {
+        let linked = [i];
         for (let j = 1; j < NNN; j++) {
+          linked.push(j * NNN + i);
           let cur_row = squares[j * NNN + i];
           if (first_row !== cur_row) {
             flag = false;
@@ -92,7 +104,10 @@ class Game extends React.Component {
           }
         }
         if (flag) {
-          return first_row;
+          return {
+            'player': first_row,
+            'linked': linked,
+          };
         }
       }
       flag = false;
@@ -101,7 +116,9 @@ class Game extends React.Component {
       flag = true;
       let left_corner = squares[0 * NNN + 0];
       if (left_corner) {
+        let linked = [0 * NNN + 0];
         for (let i = 1; i < NNN; i++) {
+          linked.push(i * NNN + i);
           let cur_corner = squares[i * NNN + i];
           if (left_corner !== cur_corner) {
             flag = false;
@@ -109,7 +126,10 @@ class Game extends React.Component {
           }
         }
         if (flag) {
-          return left_corner;
+          return {
+            'player': left_corner,
+            'linked': linked,
+          };
         }
       }
       flag = false;
@@ -118,7 +138,9 @@ class Game extends React.Component {
       flag = true;
       let right_corner = squares[0 * NNN + NNN-1];
       if (right_corner) {
+        let linked = [0 * NNN + NNN-1];
         for (let i = 1; i < NNN; i++) {
+          linked.push(i * NNN + NNN-1-i);
           let cur_corner = squares[i * NNN + NNN-1-i];
           if (right_corner !== cur_corner) {
             flag = false;
@@ -126,7 +148,10 @@ class Game extends React.Component {
           }
         }
         if (flag) {
-          return right_corner;
+          return {
+            'player': right_corner,
+            'linked': linked,
+          };
         }
       }
       flag = false;
@@ -185,16 +210,20 @@ class Game extends React.Component {
     });
 
     let status;
+    let linked;
     if (winner) {
-      status = 'Winner: ' + winner;
+      status = 'Winner: ' + winner.player;
+      linked = winner.linked;
     } else {
       status = 'Next Player: ' + (this.state.xIsNext ? 'X' : 'O');
+      linked = [];
     }
 
     return (
       <div className="game">
         <div className="game-board">
           <Board
+            linked={linked}
             squares={current.squares}
             onClick={(i) => this.handleClick(i) }
           />
