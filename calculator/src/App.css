@@ -1,0 +1,134 @@
+.input {
+  margin:0;
+  padding:0;
+}
+
+a {
+  color:#fff;
+  outline:none;
+  text-decoration:none;
+}
+
+.board {
+  position:relative;
+  width:300px;
+  background:#000;
+  margin:10px auto;
+}
+
+.display .text {
+  border:0;
+  width:290px;
+  height:84px;
+  text-align:right;
+  font:700 50px/84px Arial;
+  background:url(img/inputBg.jpg) repeat-x;
+  margin:0;
+  padding:0 5px;
+}
+
+.display .formula {
+  position:absolute;
+  top:0;
+  background:none;
+  border:0;
+  font:700 12px/1.5 Arial;
+  width:280px;
+  margin:0;
+  padding:3px 15px 0 5px;
+  text-align:right;
+}
+
+.panel {
+  position:relative;
+  overflow:hidden;
+  zoom:1;
+  background:url(img/bg.jpg);
+  padding:0 0 17px 8px;
+}
+
+.number-button {
+  float:left;
+  width:63px;
+  height:41px;
+  margin:17px 10px 0 0;
+}
+
+.number-button a {
+  width:63px;
+  height:41px;
+  display:block;
+  line-height:41px;
+  text-align:center;
+  background:url(img/btn.png) no-repeat;
+}
+
+.number-button a:hover {
+  background-position:-63px 0;
+}
+
+.operator-button {
+  float:left;
+  width:63px;
+  height:41px;
+  margin:17px 10px 0 0;
+}
+
+.operator-button a {
+  width:63px;
+  height:41px;
+  display:block;
+  line-height:41px;
+  text-align:center;
+  background:url(img/btn.png) no-repeat;
+  background-position:0 -41px;
+}
+
+.operator-button a:hover {
+  background-position:-63px -41px;
+}
+
+.wide-button {
+  float:left;
+  width:136px;
+  height:41px;
+  margin:17px 10px 0 0;
+}
+
+.wide-button a {
+  width:136px;
+  height:41px;
+  display:block;
+  line-height:41px;
+  text-align:center;
+  background:url(img/btn.png) no-repeat;
+  background-position:0 -82px;
+}
+
+.wide-button a:hover {
+  background-position:0 -123px;
+}
+
+.tall-button {
+  float:left;
+  position:absolute;
+  top:174px;
+  right:0;
+  width:63px;
+  height:99px;
+  margin:17px 10px 0 0;
+}
+
+.tall-button a {
+  width:63px;
+  height:99px;
+  display:block;
+  line-height:99px;
+  text-align:center;
+  background:url(img/btn.png) no-repeat;
+  background-position:0 -164px;
+}
+
+.tall-button a:hover {
+  background-position:-63px -164px;
+}
