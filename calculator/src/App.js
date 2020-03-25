@@ -96,8 +96,8 @@ class App extends React.Component {
       }
       let formula = this.state.formula;
       formula += this.state.text;
-      formula = formula.replace(/x/g, '*').replace(/÷/g, '/');
-      let text = eval(formula).toString();  /* eslint no-eval: 0 */
+      let expr = formula.replace(/x/g, '*').replace(/÷/g, '/');
+      let text = eval(expr).toString();  /* eslint no-eval: 0 */
       this.setState({
         text,
         formula,
