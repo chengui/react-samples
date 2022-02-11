@@ -14,8 +14,11 @@ class AddTask extends React.Component {
 
   handleClick = (ev) => {
     ev.preventDefault();
-    this.props.onAddTask(this.state.input);
-    this.setState({ input: '' });
+    const input = this.state.input.trim();
+    if (input.length > 0) {
+      this.props.onAddTask(input);
+      this.setState({ input: '' });
+    }
   }
 
   handleChange = (ev) => {
