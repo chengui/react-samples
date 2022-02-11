@@ -7,29 +7,29 @@ import TaskItem from './TaskItem';
 
 class TaskList extends React.Component {
   render() {
+    const todoTasks = this.props.tasks.filter(task => !task.completed);
+    const doneTasks = this.props.tasks.filter(task => task.completed);
     return (
       <div className="taskList">
         <ol className="tasks">
-          {this.props.tasks
-             .filter(task => !task.completed)
-             .map((task, idx) => (
-               <li key={idx} className="item">
-                  <TaskItem task={task} onToggle={this.props.onToggle} onDelete={this.props.onDelete}/>
-               </li>
-             ))
+          {todoTasks
+            .map((task, idx) => (
+              <li key={idx} className="item">
+                <TaskItem task={task} onToggle={this.props.onToggle} onDelete={this.props.onDelete}/>
+              </li>
+            ))
           }
         </ol>
         <h2 className="heading">
-          Show Completed to-dos
+          { doneTasks.length > 0 ? "Show Completed to-dos" : "" }
         </h2>
         <ol className="tasks">
-          {this.props.tasks
-             .filter(task => task.completed)
-             .map((task, idx) => (
-               <li key={idx} className="item">
-                  <TaskItem task={task} onToggle={this.props.onToggle} onDelete={this.props.onDelete}/>
-               </li>
-             ))
+          {doneTasks
+            .map((task, idx) => (
+              <li key={idx} className="item">
+                <TaskItem task={task} onToggle={this.props.onToggle} onDelete={this.props.onDelete}/>
+              </li>
+            ))
           }
         </ol>
       </div>
