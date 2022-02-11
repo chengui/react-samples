@@ -22,7 +22,7 @@ div {
   background-repeat: no-repeat;
   background-color: transparent;
   background-position: center top;
-  background-image: url(//static.wunderlist.com/737d464a394c9d7b85336016d8fc1088b3188983/images/backgrounds/1024/01.jpg) !important;
+  background-image: url(/wunder01.jpg) !important;
 }
 
 .App a {
@@ -93,7 +93,9 @@ h1 {
   color: #fff;
   transition: none;
   font-size: 16px;
-  padding: 13px 60px 14px 28px;
+  padding: 1px 1px 1px 6px;
+  margin: 15px 50px 15px 25px;
+  max-width: 98%;
 }
 
 .App [type=text].chromeless {
@@ -178,6 +180,14 @@ li {
   top: -1px;
   -webkit-box-flex: 1;
   flex: 1;
+}
+
+.taskItem .taskItem-checked {
+  text-decoration: line-through;
+}
+
+.taskItem .taskItem-delete {
+  float: right;
 }
 
 .taskItem .taskItem-titleWrapper-title {
