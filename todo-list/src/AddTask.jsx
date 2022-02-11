@@ -1,4 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Actions } from './Store';
 
 
 class AddTask extends React.Component {
@@ -11,7 +14,7 @@ class AddTask extends React.Component {
 
   handleClick = (ev) => {
     ev.preventDefault();
-    this.props.onClick(this.state.input);
+    this.props.onAddTask(this.state.input);
     this.setState({ input: '' });
   }
 
@@ -36,4 +39,16 @@ class AddTask extends React.Component {
   }
 }
 
-export default AddTask;
+AddTask.propTypes = {
+  onAddTask: PropTypes.func.isRequired,
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onAddTask: (title) => {
+      dispatch(Actions.addTask(title));
+    }
+  }
+};
+
+export default connect(null, mapDispatchToProps)(AddTask);

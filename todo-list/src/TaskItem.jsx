@@ -1,10 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 
 class TaskItem extends React.Component {
-  handleCheck = (ev) => {
+  handleToggle = (ev) => {
     ev.preventDefault();
-    this.props.onCheck(this.props.task.id);
+    this.props.onToggle(this.props.task.id);
   }
 
   handleDelete = (ev) => {
@@ -13,12 +14,12 @@ class TaskItem extends React.Component {
   }
 
   render() {
-    const checked = this.props.task.status === 'done';
+    const checked = this.props.task.completed;
     const checkedItem = checked ? 'taskItem-checked' : '';
     return (
       <div className="taskItem">
         <div className="taskItem-checkbox">
-          <input type="checkbox" onChange={this.handleCheck} checked={checked}/>
+          <input type="checkbox" onChange={this.handleToggle} checked={checked}/>
         </div>
         <div className={["taskItem-titleWrapper", checkedItem].join(" ")}>
           {this.props.task.title}
@@ -30,5 +31,10 @@ class TaskItem extends React.Component {
     );
   }
 }
+
+TaskItem.propTypes = {
+  onToggle: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+};
 
 export default TaskItem;
