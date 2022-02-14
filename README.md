@@ -2,7 +2,7 @@
 
 This project is a reference to help someone that need some practices when learning React framework.
 
-## 
+## Description
 
 - [calculator](./calculator)  A calculator looking like iPhone's calculator
 - [tic-tac-toe](./tic-tac-toe)  Tic-Tac-Toe game followed by React official site
